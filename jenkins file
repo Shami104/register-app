@@ -1,0 +1,30 @@
+pipeline {
+    agent { lable 'jenkins node' }
+    tools {
+        jdk  'java17'
+        maven  'maven3'
+    }
+    stages{
+         stage("cleanup workspace"){
+                steps {
+                cleanWs()
+                }
+         }
+         stage("Checkout from SCM"){
+                  steps {
+                  git branch: 'main' , credtentialsID: 'github' , url: 'https://github.com/Shami104/register-app'
+                  }
+         }
+         stage("Build Application"){
+            steps  {
+                sh "mvn clean package"
+            }
+         }
+        stage("Test Application"){
+            steps {
+                  sh "mvn test"
+            }
+        }
+
+    }
+}
