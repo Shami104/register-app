@@ -2,17 +2,17 @@ pipeline {
     agent { lable 'jenkins node' }
     tools {
         jdk  'java17'
-        maven  'maven3'
+        maven  'maven'
     }
     stages{
          stage("cleanup workspace"){
-                steps {
+            steps {
                 cleanWs()
                 }
          }
          stage("Checkout from SCM"){
-                  steps {
-                  git branch: 'main' , credtentialsID: 'github' , url: 'https://github.com/Shami104/register-app'
+             steps {
+                     git branch: 'main' , credtentialsID: 'github' , url: 'https://github.com/Shami104/register-app'
                   }
          }
          stage("Build Application"){
